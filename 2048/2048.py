@@ -175,7 +175,7 @@ def pygame_printing(l,n):
     
 
         
-        
+pygame_printing(white,(width/2,height/2),'monaco',50,board,'hit any key to continue...')
         
 while(True):
     
@@ -186,13 +186,17 @@ while(True):
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
-                a=move_up(a,4)
+                a=move_up(a[:],n)
+                a=get_random(a[:],n)
             elif event.key==pygame.K_LEFT:
-                a=move_left(a,4)
+                a=move_left(a[:],n)
+                a=get_random(a[:],n)
             elif event.key==pygame.K_DOWN:
-                a=move_down(a,4)
+                a=move_down(a[:],n)
+                a=get_random(a[:],n)
             elif event.key==pygame.K_RIGHT:
-                a=move_right(a,4)
+                a=move_right(a[:],n)
+                a=get_random(a[:],n)
                 
-            a=get_random(a,n)
+            
             pygame_printing(a,n)
