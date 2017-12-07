@@ -238,6 +238,7 @@ output(white,(width/2,height-50),'monaco',50,board,'...HIT ANY KEY TO CONTINUE..
 
 a=get_random(a,n)
 #a=get_random(a,n)
+temp=d_list(a)
 
 while(True):
 
@@ -246,31 +247,39 @@ while(True):
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
 
+                temptemp=d_list(temp)
                 temp=d_list(a)
                 get_rand,a=move_up(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                else:temp=temptemp
                 
             elif event.key==pygame.K_LEFT:
 
+                temptemp=d_list(temp)
                 temp=d_list(a)
                 get_rand,a=move_left(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                    temp=temptemp
                 
             elif event.key==pygame.K_DOWN:
                 
+                temptemp=d_list(temp)
                 temp=d_list(a)
                 get_rand,a=move_down(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                    temptemp
                 
             elif event.key==pygame.K_RIGHT:
                 
+                temptemp=d_list(temp)
                 temp=d_list(a)
                 get_rand,a=move_right(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                    temp=temptemp
                     
             elif event.key==pygame.K_SPACE:
                 
