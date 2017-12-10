@@ -2,13 +2,14 @@ import random,pygame,time
 
 pygame.init()
 
-width,height=1000,1000     #editable
+width,height=1000,1000     #editable 
 n=6                        #editable
 board=pygame.display.set_mode((width,height))
 pygame.display.set_caption(' '*120+':::2048:::')
 
 
 a=[[0]]        #NOT to be edited
+color0=pygame.Color(160,140,60)
 color2=pygame.Color(214,216,171)
 color4=pygame.Color(216,181,124)
 color8=pygame.Color(255,156,43)
@@ -21,7 +22,7 @@ color512=pygame.Color(216,156,39)
 color1024=pygame.Color(242,175,44)
 color2048=pygame.Color(255,184,46)
 white=pygame.Color(255,255,255)
-black=pygame.Color(0,0,0)
+brown=pygame.Color(182, 155, 76)
     
     
 def d_list(l):
@@ -203,19 +204,21 @@ def output(color,coordinates,font,size,surf,text):
     pygame.display.update()
 
 def pygame_printing(l,n):
-    board.fill(black)
+    board.fill(brown)
     for i in range(1,n+1):
         for j in range(1,n+1):
+            
+            pygame.draw.rect(board,eval('color'+str(l[i][j])),(int((j-1)*width/n+width/2*0.05),int((i-1)*height/n+height/2*0.05),int(width/n)*0.9,int(height/n)*0.9))
             if l[i][j]!=0:
-                pygame.draw.rect(board,eval('color'+str(l[i][j])),(int((j-1)*width/n+2),int((i-1)*height/n+2),int(width/n)-2,int(height/n)-2))
-                output(white,(int((j-0.5)*width/n),int((i-1)*height/n)),'monaco',100,board,str(l[i][j]))
+                
+                output(white,(int((j-0.5)*width/n),int((i-0.5)*height/n)),'monaco',100,board,str(l[i][j]))
                 if l[i][j]==2048:
                     output(white,(int(width/2),0),'console',200,board,'YOU WIN!!')
             else:output(white,(int(width/2),0),'console',100,board,' ')
     
 def check_lose(l,n):
     if move_right(l,n)[0]==False and move_left(l,n)[0]==False and move_down(l,n)[0]==False and move_up(l,n)[0]==False:
-        output(black,(int(width/2),0),'console',100,board,'GAME OVER!!!')
+        output(brown,(int(width/2),0),'console',100,board,'GAME OVER!!!')
         while True:
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
@@ -252,7 +255,8 @@ while(True):
                 get_rand,a=move_up(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
-                else:temp=temptemp
+                else:
+                    temp=temptemp
                 
             elif event.key==pygame.K_LEFT:
 
@@ -261,6 +265,7 @@ while(True):
                 get_rand,a=move_left(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                else:
                     temp=temptemp
                 
             elif event.key==pygame.K_DOWN:
@@ -270,7 +275,8 @@ while(True):
                 get_rand,a=move_down(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
-                    temptemp
+                else:
+                    temp=temptemp
                 
             elif event.key==pygame.K_RIGHT:
                 
@@ -279,6 +285,7 @@ while(True):
                 get_rand,a=move_right(a,n)
                 if get_rand==True:
                     a=get_random(a,n)
+                else:
                     temp=temptemp
                     
             elif event.key==pygame.K_SPACE:
