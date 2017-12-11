@@ -4,6 +4,8 @@ pygame.init()
 
 width,height=1000,1000     #editable 
 n=6                        #editable
+spacing=0.025
+design_spacing=width/50
 board=pygame.display.set_mode((width,height))
 pygame.display.set_caption(' '*120+':::2048:::')
 
@@ -23,6 +25,7 @@ color1024=pygame.Color(242,175,44)
 color2048=pygame.Color(255,184,46)
 white=pygame.Color(255,255,255)
 brown=pygame.Color(182, 155, 76)
+black=(0,0,0)
     
     
 def d_list(l):
@@ -159,20 +162,7 @@ def move_left(l,n):
     #if change!=False:l=get_random(l,n)
     return change,l
             
-            
-                
-    
-    
-def printing(l,n):
-    
-    for i in range(1,n+1):
-        for j in range(1,n+1):
-            
-            print(l[i][j],'',end='')
-        print()
-        
-    
-    
+ 
 def get_random(l,n):
     temp=[]
     for i in range(1,n+1):
@@ -201,19 +191,25 @@ def output(color,coordinates,font,size,surf,text):
     myrect=mytext.get_rect()
     myrect.midtop=coordinates
     surf.blit(mytext,myrect)
-    pygame.display.update()
-
+    pygame.display.update() 
+                                                                        
 def pygame_printing(l,n):
-    board.fill(brown)
+    pygame.draw.rect(board,brown,(int(width/n*spacing+design_spacing),int(height/n*spacing+design_spacing),int(width*(1-2/n*spacing)-2*design_spacing),int(height*(1-2/n*spacing)-2*design_spacing)))
     for i in range(1,n+1):
         for j in range(1,n+1):
             
-            pygame.draw.rect(board,eval('color'+str(l[i][j])),(int((j-1)*width/n+width/2*0.05),int((i-1)*height/n+height/2*0.05),int(width/n)*0.9,int(height/n)*0.9))
+            pygame.draw.rect(board,eval('color'+str(l[i][j])),(int((j-1+spacing)*width/n),int((i-1+spacing)*height/n),int(width/n*(1-2*spacing)),int(height/n*(1-2*spacing))))
             if l[i][j]!=0:
                 
-                output(white,(int((j-0.5)*width/n),int((i-0.5)*height/n)),'monaco',100,board,str(l[i][j]))
+                output(white,(int((j-0.5)*width/n),int((i-0.5)*height/n)),'monaco',int(500/n),board,str(l[i][j]))
                 if l[i][j]==2048:
-                    output(white,(int(width/2),0),'console',200,board,'YOU WIN!!')
+                    output(white,(int(width/2),50),'console',100,board,'YOU WIN!!')
+                    while True:
+                        for event in pygame.event.get():
+                            if event.type==pygame.KEYDOWN:
+                                pygame.quit()
+                                quit()
+                    
             else:output(white,(int(width/2),0),'console',100,board,' ')
     
 def check_lose(l,n):
@@ -236,7 +232,7 @@ output(white,(width/2-90,495),'console',30,board,'|')
 output(white,(width/2-30,510),'console',40,board,'V DOWN')
 output(white,(width/2,630),'console',40,board,'|__| UNDO')
         
-output(white,(width/2,height-50),'monaco',50,board,'...HIT ANY KEY TO CONTINUE...')
+output(white,(width/2,750),'monaco',50,board,'...HIT ANY KEY TO CONTINUE...')
         
 
 a=get_random(a,n)
