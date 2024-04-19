@@ -1,31 +1,35 @@
-import random,pygame,time
+import random,pygame,json
 
 pygame.init()
 
-width,height=1000,1000     #editable 
-n=6                        #editable
-spacing=0.025
-design_spacing=width/50
+with open('lib/config.json',) as json_file:
+    configs = json.load(json_file)
+
+width=configs['board']['width']
+height=configs['board']['height']
+n=configs['board']['blocks']
+spacing=configs['visuals']['spacing']
+design_spacing=configs['visuals']['design_spacing']
 board=pygame.display.set_mode((width,height))
 pygame.display.set_caption(' '*120+':::2048:::')
 
 
 a=[[0]]        #NOT to be edited
-color0=pygame.Color(160,140,60)
-color2=pygame.Color(214,216,171)
-color4=pygame.Color(216,181,124)
-color8=pygame.Color(255,156,43)
-color16=pygame.Color(255,90,30)
-color32=pygame.Color(255,50,16)
-color64=pygame.Color(255,0,0)
-color128=pygame.Color(216,209,32)
-color256=pygame.Color(216,186,48)
-color512=pygame.Color(216,156,39)
-color1024=pygame.Color(242,175,44)
-color2048=pygame.Color(255,184,46)
-white=pygame.Color(255,255,255)
-brown=pygame.Color(182, 155, 76)
-black=(0,0,0)
+color0=pygame.Color(configs['colors']['block0'])
+color2=pygame.Color(configs['colors']['block2'])
+color4=pygame.Color(configs['colors']['block4'])
+color8=pygame.Color(configs['colors']['block8'])
+color16=pygame.Color(configs['colors']['block16'])
+color32=pygame.Color(configs['colors']['block32'])
+color64=pygame.Color(configs['colors']['block64'])
+color128=pygame.Color(configs['colors']['block128'])
+color256=pygame.Color(configs['colors']['block256'])
+color512=pygame.Color(configs['colors']['block512'])
+color1024=pygame.Color(configs['colors']['block1024'])
+color2048=pygame.Color(configs['colors']['block2048'])
+white=pygame.Color(configs['colors']['white'])
+brown=pygame.Color(configs['colors']['brown'])
+black=(configs['colors']['black'])
     
     
 def d_list(l):
